@@ -1,0 +1,75 @@
+1) TRIGGER CHE INSERISCE IL PUNTEGGIO 0:
+
+DELIMITER $$
+CREATE TRIGGER insert_zeropoints
+BEFORE INSERT ON answermarketing
+FOR EACH ROW
+BEGIN
+IF NOT EXISTS ( SELECT * FROM score s WHERE s.user=NEW.user AND s.questionnaire=NEW.questionnaire  ) THEN
+INSERT INTO score(point, user, questionnaire) 
+VALUES (0, NEW.user, NEW.questionnaire);
+END IF;
+
+END $$
+
+2) TRIGGER CHE AGGIORNA IL PUNTEGGIO PER MARKETING:
+
+CREATE TRIGGER update_point_marketing
+AFTER INSERT ON answermarketing
+FOR EACH ROW
+UPDATE score s
+SET point = point +1
+WHERE s.user=NEW.user AND s.questionnaire=NEW.questionnaire
+
+
+3) TRIGGER CHE AGGIORNA IL PUNTEGGIO PER STATISTICAL
+
+DELIMITER $$
+CREATE TRIGGER update_point_statistical
+AFTER INSERT ON answerstatistical
+FOR EACH ROW
+
+BEGIN
+DECLARE x integer;
+SET x=0;
+
+IF( NEW.age IS NOT NULL )THEN SET x=2;
+END IF;
+IF( NEW.sex IS NOT NULL ) THEN SET x=x+2;
+END IF;
+IF( NEW.level IS NOT NULL ) THEN SET x=x+2;
+END IF;
+
+IF( x <> 0 ) THEN
+UPDATE score s
+SET point = point + x
+WHERE s.user=NEW.user AND s.questionnaire=NEW.questionnaire;
+END IF;
+END $$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
