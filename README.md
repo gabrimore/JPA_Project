@@ -3,7 +3,8 @@ This repository contains the implementation of the JAVA project of Database 2 co
 In this repository you can find also some text documents whcih contains: Java code of the WEB part(presentation layer), Java code of the EJB part(business layer), DDL SQL for creating the DB(data layer), Triggers implemented in the DB, HTML templates written in Thymeleaf.
 
 
-SPECIFICATIONS:
+# SPECIFICATIONS
+
 An application deals with gamified consumer data collection. A user registers with a username, a password and an email. A registered user logs in and accesses a HOME PAGE where a “Questionnaire of the day” is published. 
 The HOME PAGE displays the name and the image of the “product of the day” and the product reviews by other users.
 The HOME PAGE comprises a link to access a QUESTIONNAIRE PAGE with a questionnaire divided in two sections: a section with a variable number of marketing questions about the product of the day (e.g., Q1: “Do you know the product?” Q2: Have you purchased the product before?” and Q3 “Would you recommend the product to a friend?”) and a section with fixed inputs for collecting statistical data about the user: age, sex, expertise level (low, medium high). 
